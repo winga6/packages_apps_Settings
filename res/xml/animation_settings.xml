@@ -23,6 +23,12 @@
         android:key="animations_1"
         android:title="@string/animations_cat" >
 
+    <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        android:key="disable_transition_animations"
+        android:title="@string/disable_animations"
+        android:summary="@string/disable_animations_summary"
+        android:defaultValue="false" />
+
     <PreferenceScreen
         android:key="aokp_animation"
         android:title="@string/system_animation_title"

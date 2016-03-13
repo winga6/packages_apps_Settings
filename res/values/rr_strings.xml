@@ -307,6 +307,13 @@
 	<string name="status_bar_quick_qs_pulldown_summary">Right edge of the status bar pulls down Quick Settings</string>
 	<string name="quick_pulldown_summary_always">Always show Quick Settings on status bar pulldown</string>	
 	<string name="quick_pulldown_always">Always</string>	
+
+    <!-- QS Tiles Columns -->
+    <string name="qs_num_columns_title">Number of QS tiles per row</string>
+    <string name="qs_num_columns_showing">%1$s tiles per row are shown</string>
+    <!-- QS Tiles Rows -->
+    <string name="qs_num_rows_title">Number of QS rows</string>
+    <string name="qs_num_rows_showing">%1$s rows are shown</string>
 	
 	<!-- Quick settings brightness slider -->
 	<string name="qs_brightness_slider_title">Brightness Slider</string>
@@ -2030,5 +2037,9 @@
      <string name="smartbar_ime_action_none">None</string>
      <string name="smartbar_ime_action_arrows">Input arrows</string>
      <string name="smartbar_ime_action_switcher">Keyboard switcher</string>
+
+    <!-- Disable animations -->
+    <string name="disable_animations">Disable animations</string>
+    <string name="disable_animations_summary">Disables transition animations such as when launching an app</string>
 
 </resources>

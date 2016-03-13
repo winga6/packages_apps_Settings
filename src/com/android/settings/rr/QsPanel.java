@@ -15,16 +15,21 @@
 */
 package com.android.settings.rr;
 
-
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.ContentObserver;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.UserHandle;
+import android.preference.ListPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import com.android.settings.util.Helpers;
@@ -47,15 +52,19 @@ public class QsPanel extends SettingsPreferenceFragment  implements Preference.O
  private static final String PREF_BLOCK_ON_SECURE_KEYGUARD = "block_on_secure_keyguard";
  private static final String STATUS_BAR_QUICK_QS_PULLDOWN = "qs_quick_pulldown";
  private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
+ private static final String PREF_NUM_COLUMNS = "sysui_qs_num_columns";
+ private static final String PREF_NUM_ROWS = "sysui_qs_num_rows";
 
     private SwitchPreference mBlockOnSecureKeyguard;
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
+    private ListPreference mNumColumns;
+    private ListPreference mNumRows;
     	
     private static final int MY_USER_ID = UserHandle.myUserId();
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.rr_qs_panel);
         PreferenceScreen prefSet = getPreferenceScreen();
         final ContentResolver resolver = getActivity().getContentResolver();
@@ -94,6 +103,24 @@ int quickPulldown = CMSettings.System.getInt(resolver,
                 Settings.System.QS_SMART_PULLDOWN, 0);
         mSmartPulldown.setValue(String.valueOf(smartPulldown));
         updateSmartPulldownSummary(smartPulldown);
+
+           // Number of QS Columns 3,4,5
+            mNumColumns = (ListPreference) findPreference("sysui_qs_num_columns");
+            int numColumns = Settings.System.getIntForUser(resolver,
+                    Settings.System.QS_NUM_TILE_COLUMNS, getDefaultNumColumns(),
+                    UserHandle.USER_CURRENT);
+            mNumColumns.setValue(String.valueOf(numColumns));
+            updateNumColumnsSummary(numColumns);
+            mNumColumns.setOnPreferenceChangeListener(this);
+
+            // Number of QS Rows 3,4
+            mNumRows = (ListPreference) findPreference("sysui_qs_num_rows");
+            int numRows = Settings.System.getIntForUser(resolver,
+                    Settings.System.QS_NUM_TILE_ROWS, getDefaultNumRows(),
+                    UserHandle.USER_CURRENT);
+            mNumRows.setValue(String.valueOf(numRows));
+            updateNumRowsSummary(numRows);
+            mNumRows.setOnPreferenceChangeListener(this);
 
     }
 
@@ -136,6 +163,18 @@ int quickPulldown = CMSettings.System.getInt(resolver,
             Settings.System.putInt(resolver, Settings.System.QS_SMART_PULLDOWN, smartPulldown);
             updateSmartPulldownSummary(smartPulldown);
             return true;
+            } else if (preference == mNumColumns) {
+                int numColumns = Integer.valueOf((String) newValue);
+                Settings.System.putIntForUser(resolver, Settings.System.QS_NUM_TILE_COLUMNS,
+                        numColumns, UserHandle.USER_CURRENT);
+                updateNumColumnsSummary(numColumns);
+                return true;
+            } else if (preference == mNumRows) {
+                int numRows = Integer.valueOf((String) newValue);
+                Settings.System.putIntForUser(resolver, Settings.System.QS_NUM_TILE_ROWS,
+                        numRows, UserHandle.USER_CURRENT);
+                updateNumRowsSummary(numRows);
+                return true;
 	}
          return false;
 	}
@@ -163,6 +202,44 @@ int quickPulldown = CMSettings.System.getInt(resolver,
             type = type.toLowerCase();
             mSmartPulldown.setSummary(res.getString(R.string.smart_pulldown_summary, type));
         }
+      }
+
+        private void updateNumColumnsSummary(int numColumns) {
+            String prefix = (String) mNumColumns.getEntries()[mNumColumns.findIndexOfValue(String
+                    .valueOf(numColumns))];
+            mNumColumns.setSummary(getResources().getString(R.string.qs_num_columns_showing, prefix));
+        }
+
+        private void updateNumRowsSummary(int numRows) {
+            String prefix = (String) mNumRows.getEntries()[mNumRows.findIndexOfValue(String
+                    .valueOf(numRows))];
+            mNumRows.setSummary(getResources().getString(R.string.qs_num_rows_showing, prefix));
+        }
+
+        private int getDefaultNumColumns() {
+            try {
+                Resources res = getActivity().getPackageManager()
+                        .getResourcesForApplication("com.android.systemui");
+                int val = res.getInteger(res.getIdentifier("quick_settings_num_columns", "integer",
+                        "com.android.systemui")); // better not be larger than 5, that's as high as the
+                                                  // list goes atm
+                return Math.max(1, val);
+            } catch (Exception e) {
+                return 3;
+            }
+        }
+
+        private int getDefaultNumRows() {
+            try {
+                Resources res = getActivity().getPackageManager()
+                        .getResourcesForApplication("com.android.systemui");
+                int val = res.getInteger(res.getIdentifier("quick_settings_num_rows", "integer",
+                        "com.android.systemui")); // better not be larger than 4, that's as high as the
+                                                  // list goes atm
+                return Math.max(1, val);
+            } catch (Exception e) {
+                return 3;
+            }
+        }
     }
-}
 
