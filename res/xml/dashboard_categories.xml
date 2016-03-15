@@ -103,7 +103,26 @@
                 android:title="@string/rr_settings_title"
                 android:fragment="com.android.settings.rr.MainSettings"
                 android:icon="@drawable/ic_rr_tools_tint"
-                />        
+                /> 
+        <!-- Viper4Android -->
+        <dashboard-tile
+                android:id="@+id/equalizer_settings"
+                android:title="@string/equalizer_settings_title"
+                android:icon="@drawable/ic_xd_eq" >
+                <intent
+                    android:action="android.intent.action.MAIN"
+                    android:targetClass="com.vipercn.viper4android_v2.activity.ViPER4Android"
+                    android:targetPackage="com.vipercn.viper4android_v2" />
+        </dashboard-tile>
+        <dashboard-tile
+		android:id="@+id/kernel_adiutor"
+                android:title="@string/kernel_aduitor"
+		android:icon="@drawable/rr_performance_icon">
+ 	<intent
+                    android:action="android.intent.action.MAIN"
+                    android:targetPackage="com.grarak.kerneladiutor"
+                    android:targetClass="com.grarak.kerneladiutor.MainActivity" />
+	</dashboard-tile>       
         <!-- Themes -->
         <!-- NOTE: Intent.parseIntent looks for "categories" tag and not "category" -->
         <dashboard-tile
@@ -336,15 +355,6 @@
                 android:targetPackage="eu.chainfire.supersu"
                 android:targetClass="eu.chainfire.supersu.MainActivity" />
         </dashboard-tile>
-    <dashboard-tile
-		android:id="@+id/kernel_adiutor"
-                android:title="@string/kernel_aduitor"
-		android:icon="@drawable/rr_performance_icon">
- 	<intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetPackage="com.grarak.kerneladiutor"
-                    android:targetClass="com.grarak.kerneladiutor.MainActivity" />
-	</dashboard-tile>
         <!-- About Device -->
         <dashboard-tile
                 android:id="@+id/about_settings"
