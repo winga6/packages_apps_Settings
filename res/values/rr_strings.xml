@@ -299,14 +299,7 @@
 	<string name="rr_qs_cat">Quick Settings PullDown</string>
 	<string name="rr_qs">Quick Settings</string>
 	<string name="rr_brightness_cat">Brightness Slider</string>
-	<string name="rr_qs_title">QuickSettings Panel </string>
-	
-	
-	<!-- Quick settings quick pull down -->
-	<string name="status_bar_quick_qs_pulldown_title">Quick Pulldown</string>
-	<string name="status_bar_quick_qs_pulldown_summary">Right edge of the status bar pulls down Quick Settings</string>
-	<string name="quick_pulldown_summary_always">Always show Quick Settings on status bar pulldown</string>	
-	<string name="quick_pulldown_always">Always</string>	
+	<string name="rr_qs_title">QuickSettings Panel </string>	
 
     <!-- QS Tiles Columns -->
     <string name="qs_num_columns_title">Number of QS tiles per row</string>
@@ -1962,6 +1955,6 @@
     <string name="disable_animations">Disable animations</string>
     <string name="disable_animations_summary">Disables transition animations such as when launching an app</string>
     
-    <!-- Viper4Android  -->
-    <string name="equalizer_settings_title">Equalizer</string>
+    <!--Embedded AudioFX-->
+    <string name="audiofx_settings_title">Equalizer</string>
 </resources>
