@@ -54,9 +54,22 @@
 	<string name="sourcebase_title">Source Base</string>
 	<string name="title_about">About Resurrection</string>
 	<string name="dev_categorie_title">Developer &amp; Maintainer</string>
-	
 	<string name="rr_mod_version">Resurrection version</string>
 	
+    <!-- UBER GCC version info -->
+    <string name="uber_android">GCC android</string>
+    <string name="uber_android_default">Unknown</string>
+    <string name="uber_kernel">GCC kernel</string>
+    <string name="uber_kernel_default">Unknown</string>
+
+    <!-- UBER GCC build flags info -->
+    <string name="uber_flags">Build flags</string>
+    <string name="uber_flags_default">None</string>
+
+    <!-- Clang version -->
+    <string name="dtc_version">Clang</string>
+    <string name="dtc_version_default">None</string>
+
 	<!-- Nfc settings -->
 	<string name="nfc_polling_mode_title">NFC polling mode</string>
 	<string name="nfc_polling_mode_screen_off">Screen off</string>
